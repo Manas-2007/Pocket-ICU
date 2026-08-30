@@ -145,106 +145,342 @@ const FeaturesSection = () => {
 };
 
 
-// HOW IT WORKS COMPONENT (In the same file)
+// HOW IT WORKS COMPONENT
 const HowItWorks = () => {
+  const steps = [
+    {
+      title: "Collect",
+      description: "Sensors collect real-time health & environment data.",
+      color: "blue",
+      icon: (
+        <svg
+          className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M3 3h18v18H3z"
+            opacity="0.2"
+            fill="currentColor"
+          />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M7 12h2l1 2 2-4 1 2h2"
+          />
+        </svg>
+      ),
+    },
+    {
+      title: "Analyze",
+      description: "AI models analyze patterns and detect risks early.",
+      color: "indigo",
+      icon: (
+        <svg
+          className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+          />
+        </svg>
+      ),
+    },
+    {
+      title: "Alert",
+      description: "Instant alerts sent to doctors & caregivers.",
+      color: "red",
+      icon: (
+        <svg
+          className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7"
+          fill="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z" />
+        </svg>
+      ),
+    },
+    {
+      title: "Act",
+      description: "Timely actions ensure better outcomes.",
+      color: "emerald",
+      icon: (
+        <svg
+          className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 00-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+          />
+        </svg>
+      ),
+    },
+  ];
+
+  const colorClasses = {
+    blue: {
+      iconBg: "bg-blue-100",
+      iconText: "text-blue-700",
+      glow: "shadow-[0_0_28px_rgba(59,130,246,0.14)]",
+    },
+    indigo: {
+      iconBg: "bg-indigo-50",
+      iconText: "text-indigo-700",
+      glow: "shadow-[0_0_28px_rgba(99,102,241,0.14)]",
+    },
+    red: {
+      iconBg: "bg-red-50",
+      iconText: "text-red-700",
+      glow: "shadow-[0_0_28px_rgba(239,68,68,0.14)]",
+    },
+    emerald: {
+      iconBg: "bg-emerald-50",
+      iconText: "text-emerald-600",
+      glow: "shadow-[0_0_28px_rgba(16,185,129,0.14)]",
+    },
+  };
+
   return (
-    <div className="mt-20 lg:mt-25 w-full bg-[#f8fbff] rounded-3xl p-6 lg:p-12 border border-blue-600 flex flex-col lg:flex-row items-start gap-12 lg:gap-8">
-      
-      {/* Left Text Content */}
-      <div className="w-full lg:w-1/3 flex flex-col items-start text-left shrink-0">
-        <span className="inline-block px-3 py-1.5 bg-blue-200/60 text-blue-600 text-[10px] lg:text-[11px] font-bold uppercase tracking-widest rounded-full mb-4">
-          How it works
-        </span>
-        <h3 className="text-[1.8rem] lg:text-[2.2rem] font-bold text-gray-900 leading-[1.2] mb-3 lg:mb-4">
-          Intelligence at Every Step
-        </h3>
-        <p className="text-gray-500 font-medium text-[13px] lg:text-[15px] leading-relaxed pr-0 lg:pr-4">
-          From continuous data collection to life-saving insights — all seamlessly connected.
-        </p>
-      </div>
+    <div
+      className="
+        mt-14 sm:mt-16 lg:mt-20
+        w-full
+        max-w-[1500px]
+        mx-auto
+        bg-[#f8fbff]
+        rounded-2xl sm:rounded-3xl
+        p-5 sm:p-7 md:p-8 lg:p-10 xl:p-12
+        border border-blue-200
+        overflow-hidden
+      "
+    >
+      <div
+        className="
+          flex flex-col
+          lg:flex-row
+          items-start
+          gap-8 sm:gap-10 lg:gap-8 xl:gap-12
+        "
+      >
+        {/* Left Content */}
+        <div
+          className="
+            w-full
+            lg:w-[30%]
+            xl:w-[28%]
+            shrink-0
+          "
+        >
+          <span
+            className="
+              inline-flex
+              px-3 py-1.5
+              bg-blue-100
+              text-blue-600
+              text-[10px] sm:text-[11px]
+              font-bold
+              uppercase
+              tracking-[0.14em]
+              rounded-full
+              mb-3 sm:mb-4
+            "
+          >
+            How it works
+          </span>
 
-      {/* Right Steps Pipeline Container */}
-      <div className="w-full lg:w-2/3 relative pt-2 lg:pt-0">
-        
-        {/* Connecting Lines (Vertical for Mobile, Horizontal for Desktop) */}
-        {/* Mobile Line */}
-        <div className="absolute left-[31px] top-8 bottom-12 w-[2px] bg-blue-400/50 -z-0 lg:hidden"></div>
-        {/* Desktop Line */}
-        <div className="hidden lg:block absolute top-[39px] left-10 right-10 h-[2px] bg-blue-400/50 -z-0"></div>
+          <h3
+            className="
+              text-[1.5rem]
+              sm:text-[1.75rem]
+              md:text-[1.9rem]
+              lg:text-[2rem]
+              xl:text-[2.2rem]
+              font-bold
+              text-gray-900
+              leading-[1.15]
+              tracking-tight
+              mb-2.5 sm:mb-3
+            "
+          >
+            Intelligence at Every Step
+          </h3>
 
-        <div className="flex flex-col lg:flex-row justify-between gap-10 lg:gap-4 relative z-10 w-full">
-          
-          {/* Step 1: Collect */}
-          <div className="group flex flex-row lg:flex-col items-center lg:items-center gap-4 lg:gap-5 flex-1 cursor-default">
-            {/* Glowing Icon Container */}
-            <div className="w-16 h-16 lg:w-20 lg:h-20 rounded-full bg-white flex items-center justify-center shadow-[0_0_30px_rgba(59,130,246,0.15)] shrink-0 transition-transform duration-300 group-hover:-translate-y-1">
-              <div className="w-10 h-10 lg:w-12 lg:h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-800">
-                <svg className="w-5 h-5 lg:w-6 lg:h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 3h18v18H3z" opacity="0.2" fill="currentColor"/> 
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M7 12h2l1 2 2-4 1 2h2" />
-                </svg>
-              </div>
-            </div>
-            {/* Text Data */}
-            <div className="text-left lg:text-center w-full">
-              <h4 className="text-[15px] lg:text-[17px] font-bold text-gray-900 mb-1">Collect</h4>
-              <p className="text-[12px] lg:text-[13px] text-gray-500 font-medium leading-relaxed max-w-[200px] lg:mx-auto">
-                Sensors collect real-time health & environment data.
-              </p>
-            </div>
+          <p
+            className="
+              text-gray-500
+              font-medium
+              text-[12px]
+              sm:text-[13px]
+              md:text-[14px]
+              lg:text-[15px]
+              leading-relaxed
+              max-w-[420px]
+            "
+          >
+            From continuous data collection to life-saving insights — all
+            seamlessly connected.
+          </p>
+        </div>
+
+        {/* Steps */}
+        <div
+          className="
+            w-full
+            lg:w-[70%]
+            xl:w-[72%]
+            relative
+          "
+        >
+          {/* Mobile Connecting Line */}
+          <div
+            className="
+              absolute
+              left-[27px]
+              sm:left-[31px]
+              top-7
+              bottom-7
+              w-[2px]
+              bg-blue-300/60
+              lg:hidden
+            "
+          />
+
+          {/* Desktop Connecting Line */}
+          <div
+            className="
+              hidden
+              lg:block
+              absolute
+              top-[38px]
+              left-[9%]
+              right-[9%]
+              h-[2px]
+              bg-blue-300/60
+            "
+          />
+
+          <div
+            className="
+              grid
+              grid-cols-1
+              sm:grid-cols-2
+              lg:grid-cols-4
+              gap-7
+              sm:gap-8
+              lg:gap-4
+              xl:gap-7
+              relative
+              z-10
+            "
+          >
+            {steps.map((step) => {
+              const colors = colorClasses[step.color];
+
+              return (
+                <div
+                  key={step.title}
+                  className="
+                    flex
+                    flex-row
+                    sm:flex-row
+                    lg:flex-col
+                    items-center
+                    lg:items-center
+                    gap-3.5
+                    sm:gap-4
+                    lg:gap-4
+                    text-left
+                    lg:text-center
+                    group
+                  "
+                >
+                  {/* Icon */}
+                  <div
+                    className={`
+                      flex
+                      w-14 h-14
+                      sm:w-16 sm:h-16
+                      lg:w-[76px] lg:h-[76px]
+                      xl:w-[82px] xl:h-[82px]
+                      rounded-full
+                      bg-white
+                      items-center
+                      justify-center
+                      shrink-0
+                      ${colors.glow}
+                      transition-transform
+                      duration-300
+                      group-hover:-translate-y-1
+                    `}
+                  >
+                    <div
+                      className={`
+                        w-9 h-9
+                        sm:w-10 sm:h-10
+                        lg:w-12 lg:h-12
+                        xl:w-13 xl:h-13
+                        rounded-full
+                        ${colors.iconBg}
+                        ${colors.iconText}
+                        flex
+                        items-center
+                        justify-center
+                      `}
+                    >
+                      {step.icon}
+                    </div>
+                  </div>
+
+                  {/* Text */}
+                  <div className="min-w-0 flex-1 lg:flex-none">
+                    <h4
+                      className="
+                        text-[15px]
+                        sm:text-[16px]
+                        lg:text-[17px]
+                        xl:text-[18px]
+                        font-bold
+                        text-gray-900
+                        mb-0.5 sm:mb-1
+                      "
+                    >
+                      {step.title}
+                    </h4>
+
+                    <p
+                      className="
+                        text-[11px]
+                        sm:text-[12px]
+                        lg:text-[12px]
+                        xl:text-[13px]
+                        text-gray-500
+                        font-medium
+                        leading-relaxed
+                        max-w-[210px]
+                        lg:mx-auto
+                      "
+                    >
+                      {step.description}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
           </div>
-
-          {/* Step 2: Analyze */}
-          <div className="group flex flex-row lg:flex-col items-center lg:items-center gap-4 lg:gap-5 flex-1 cursor-default">
-            <div className="w-16 h-16 lg:w-20 lg:h-20 rounded-full bg-white flex items-center justify-center shadow-[0_0_30px_rgba(99,102,241,0.15)] shrink-0 transition-transform duration-300 group-hover:-translate-y-1">
-              <div className="w-10 h-10 lg:w-12 lg:h-12 rounded-full bg-indigo-50 flex items-center justify-center text-indigo-700">
-                <svg className="w-5 h-5 lg:w-6 lg:h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                   <path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                </svg>
-              </div>
-            </div>
-            <div className="text-left lg:text-center w-full">
-              <h4 className="text-[15px] lg:text-[17px] font-bold text-gray-900 mb-1">Analyze</h4>
-              <p className="text-[12px] lg:text-[13px] text-gray-700 font-medium leading-relaxed max-w-[200px] lg:mx-auto">
-                AI models analyze patterns and detect risks early.
-              </p>
-            </div>
-          </div>
-
-          {/* Step 3: Alert */}
-          <div className="group flex flex-row lg:flex-col items-center lg:items-center gap-4 lg:gap-5 flex-1 cursor-default">
-            <div className="w-16 h-16 lg:w-20 lg:h-20 rounded-full bg-white flex items-center justify-center shadow-[0_0_30px_rgba(239,68,68,0.15)] shrink-0 transition-transform duration-300 group-hover:-translate-y-1">
-              <div className="w-10 h-10 lg:w-12 lg:h-12 rounded-full bg-red-50 flex items-center justify-center text-red-700">
-                <svg className="w-5 h-5 lg:w-6 lg:h-6" fill="currentColor" viewBox="0 0 24 24">
-                   <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z" />
-                </svg>
-              </div>
-            </div>
-            <div className="text-left lg:text-center w-full">
-              <h4 className="text-[15px] lg:text-[17px] font-bold text-gray-900 mb-1">Alert</h4>
-              <p className="text-[12px] lg:text-[13px] text-gray-500 font-medium leading-relaxed max-w-[200px] lg:mx-auto">
-                Instant alerts sent to doctors & caregivers.
-              </p>
-            </div>
-          </div>
-
-          {/* Step 4: Act */}
-          <div className="group flex flex-row lg:flex-col items-center lg:items-center gap-4 lg:gap-5 flex-1 cursor-default">
-            <div className="w-16 h-16 lg:w-20 lg:h-20 rounded-full bg-white flex items-center justify-center shadow-[0_0_30px_rgba(16,185,129,0.15)] shrink-0 transition-transform duration-300 group-hover:-translate-y-1">
-              <div className="w-10 h-10 lg:w-12 lg:h-12 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-500">
-                <svg className="w-5 h-5 lg:w-6 lg:h-6" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                </svg>
-              </div>
-            </div>
-            <div className="text-left lg:text-center w-full">
-              <h4 className="text-[15px] lg:text-[17px] font-bold text-gray-900 mb-1">Act</h4>
-              <p className="text-[12px] lg:text-[13px] text-gray-500 font-medium leading-relaxed max-w-[200px] lg:mx-auto">
-                Timely actions ensure better outcomes.
-              </p>
-            </div>
-          </div>
-
         </div>
       </div>
     </div>
