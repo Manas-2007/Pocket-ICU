@@ -7,6 +7,7 @@ import BottomCharts from './BottomCharts';
 import FallDetectionTab from './FallDetectionTab';
 import HealthOverview from './HealthOverview';
 import DeviceImpactTab from './DeviceImpactTab';
+import DisasterManagementTab from './DisasterManagementTab';
 
 const DoctorLayout = ({ onLogout }) => {
   const [activeTab, setActiveTab] = useState('analytics');
@@ -46,13 +47,20 @@ const DoctorLayout = ({ onLogout }) => {
             </div>
           )}
 
+          {activeTab === 'disaster' && (
+            <div className="animate-in fade-in duration-300">
+              <DisasterManagementTab />
+            </div>
+          )}
+
           {activeTab === 'device' && (
             <div className="animate-in fade-in duration-300">
               <DeviceImpactTab />
             </div>
           )}
 
-          {['disaster'].includes(activeTab) && (
+          {/* Default fallback for any unknown tab */}
+          {!['analytics', 'overview', 'fall', 'disaster', 'device'].includes(activeTab) && (
             <div className="flex h-full items-center justify-center text-slate-500 animate-in fade-in duration-300">
               <p className="text-lg">Module "{activeTab}" is under development...</p>
             </div>
