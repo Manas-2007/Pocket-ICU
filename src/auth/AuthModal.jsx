@@ -19,7 +19,8 @@ import {
   Sparkles,
 } from "lucide-react";
 
-const AuthModal = ({ isOpen, onClose }) => {
+// 1. Yahan onLoginSuccess add kiya
+const AuthModal = ({ isOpen, onClose, onLoginSuccess }) => {
   const [isLogin, setIsLogin] = useState(true);
   const [role, setRole] = useState("doctor");
 
@@ -76,149 +77,30 @@ const AuthModal = ({ isOpen, onClose }) => {
     setSuccess("");
   };
 
-  const validatePincode = (value) => {
-    return /^\d{6}$/.test(value);
-  };
-
+  // =================================================================
+  // DEV BYPASS: No validation, direct login based on selected role!
+  // =================================================================
   const handleSubmit = (e) => {
     e.preventDefault();
-
     setError("");
-    setSuccess("");
+    setSuccess("Bypass Successful! Redirecting to Dashboard...");
 
-    const email = formData.email.trim().toLowerCase();
-
-    if (!email || !formData.password) {
-      setError("Please enter your email and password.");
-      return;
-    }
-
-    const users = JSON.parse(
-      localStorage.getItem("pocket_icu_users") || "[]"
-    );
-
-    /* ---------------- LOGIN ---------------- */
-
-    if (isLogin) {
-      const user = users.find(
-        (item) =>
-          item.email === email && item.password === formData.password
-      );
-
-      if (!user) {
-        setError("Invalid email or password.");
-        return;
-      }
-
-      localStorage.setItem(
-        "pocket_icu_current_user",
-        JSON.stringify(user)
-      );
-
-      setSuccess("Login successful. Welcome back!");
-
-      setTimeout(() => {
-        onClose();
-      }, 700);
-
-      return;
-    }
-
-    /* ---------------- REGISTER ---------------- */
-
-    if (!formData.fullName.trim()) {
-      setError("Please enter your full name.");
-      return;
-    }
-
-    if (role === "doctor") {
-      if (!formData.hospitalName.trim()) {
-        setError("Please enter your hospital or healthcare facility.");
-        return;
-      }
-
-      if (!validatePincode(formData.hospitalPincode)) {
-        setError("Hospital pincode must be exactly 6 digits.");
-        return;
-      }
-    }
-
-    if (role === "patient") {
-      if (!formData.age) {
-        setError("Please enter your age.");
-        return;
-      }
-
-      if (!formData.address.trim()) {
-        setError("Please enter your residential address.");
-        return;
-      }
-
-      if (!validatePincode(formData.pincode)) {
-        setError("Pincode must be exactly 6 digits.");
-        return;
-      }
-    }
-
-    if (formData.password.length < 6) {
-      setError("Password must contain at least 6 characters.");
-      return;
-    }
-
-    if (formData.password !== formData.confirmPassword) {
-      setError("Passwords do not match.");
-      return;
-    }
-
-    if (!formData.terms) {
-      setError("Please accept the terms and privacy policy.");
-      return;
-    }
-
-    const alreadyExists = users.some(
-      (item) => item.email === email
-    );
-
-    if (alreadyExists) {
-      setError("An account with this email already exists.");
-      return;
-    }
-
-    const newUser = {
+    // Fake User Data (Jo role selected hoga, waisa user ban jayega)
+    const mockUser = {
       id: Date.now(),
-      fullName: formData.fullName.trim(),
-      email,
-      password: formData.password,
-      role,
-
-      ...(role === "doctor"
-        ? {
-            hospitalName: formData.hospitalName.trim(),
-            hospitalPincode: formData.hospitalPincode,
-          }
-        : {
-            age: formData.age,
-            bloodGroup: formData.bloodGroup,
-            address: formData.address.trim(),
-            pincode: formData.pincode,
-          }),
+      role: role,
+      fullName: formData.fullName || (role === "doctor" ? "Dr. Ananya Sharma" : "Patient User"),
+      email: formData.email || (role === "doctor" ? "doctor@pocketicu.com" : "patient@pocketicu.com"),
     };
 
-    localStorage.setItem(
-      "pocket_icu_users",
-      JSON.stringify([...users, newUser])
-    );
+    // Save to local storage
+    localStorage.setItem("pocket_icu_current_user", JSON.stringify(mockUser));
 
-    localStorage.setItem(
-      "pocket_icu_current_user",
-      JSON.stringify(newUser)
-    );
-
-    setSuccess("Account created successfully!");
-
+    // Redirect to Dashboard
     setTimeout(() => {
+      if (onLoginSuccess) onLoginSuccess(mockUser);
       onClose();
-    }, 700);
+    }, 600);
   };
 
   const inputClass = `
@@ -497,10 +379,12 @@ const AuthModal = ({ isOpen, onClose }) => {
             [scrollbar-color:#cbd5e1_transparent]
           "
         >
+          {/* Added noValidate to avoid browser popups */}
           <form
             id="pocket-icu-auth-form"
             onSubmit={handleSubmit}
             className="space-y-3.5 pb-3"
+            noValidate 
           >
             {/* REGISTER FIELDS */}
 
@@ -528,7 +412,7 @@ const AuthModal = ({ isOpen, onClose }) => {
                       name="fullName"
                       value={formData.fullName}
                       onChange={handleChange}
-                      placeholder="Enter your full name"
+                      placeholder="Enter your full name (Optional in Dev)"
                       className={`${inputClass} pl-10`}
                     />
                   </div>
@@ -558,7 +442,7 @@ const AuthModal = ({ isOpen, onClose }) => {
                           name="hospitalName"
                           value={formData.hospitalName}
                           onChange={handleChange}
-                          placeholder="Hospital name"
+                          placeholder="Hospital name (Optional)"
                           className={`${inputClass} border-blue-100 pl-10 focus:border-blue-400`}
                         />
                       </div>
@@ -586,7 +470,7 @@ const AuthModal = ({ isOpen, onClose }) => {
                           maxLength={6}
                           value={formData.hospitalPincode}
                           onChange={handleChange}
-                          placeholder="6-digit pincode"
+                          placeholder="6-digit (Optional)"
                           className={`${inputClass} border-blue-100 pl-10 focus:border-blue-400`}
                         />
                       </div>
@@ -745,7 +629,7 @@ const AuthModal = ({ isOpen, onClose }) => {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  placeholder="you@example.com"
+                  placeholder="Optional in Dev Mode"
                   className={`${inputClass} pl-10`}
                 />
               </div>
@@ -780,7 +664,7 @@ const AuthModal = ({ isOpen, onClose }) => {
                     name="password"
                     value={formData.password}
                     onChange={handleChange}
-                    placeholder="Enter password"
+                    placeholder="Optional in Dev Mode"
                     className={`${inputClass} pl-10 pr-10`}
                   />
 
@@ -832,7 +716,7 @@ const AuthModal = ({ isOpen, onClose }) => {
                       name="confirmPassword"
                       value={formData.confirmPassword}
                       onChange={handleChange}
-                      placeholder="Confirm password"
+                      placeholder="Optional"
                       className={`${inputClass} pl-10 pr-10`}
                     />
 
@@ -1030,7 +914,7 @@ const AuthModal = ({ isOpen, onClose }) => {
               }
             `}
           >
-            {isLogin ? "Sign In" : "Create Account"}
+            {isLogin ? "Sign In (Dev Bypass)" : "Create Account (Dev Bypass)"}
 
             <ArrowRight
               size={16}
