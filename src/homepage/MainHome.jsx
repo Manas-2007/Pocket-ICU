@@ -5,10 +5,12 @@ import FeaturesSection from './FeaturesSection';
 import TestimonialsSection from './TestimonialsSection';
 import Footer from './Footer';
 
-const MainHome = () => {
+// 1. Yahan App.jsx se aane wala onOpenAuth receive kiya
+const MainHome = ({ onOpenAuth }) => {
   return (
     <>
-      <HeroSection />
+      {/* 2. Yahan wahi onOpenAuth ko HeroSection ke andar pass kar diya */}
+      <HeroSection onOpenAuth={onOpenAuth} />
       <StatsBar />
       <FeaturesSection />
       <TestimonialsSection />

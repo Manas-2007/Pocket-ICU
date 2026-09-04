@@ -1,6 +1,6 @@
 import React from 'react';
 
-const HeroSection = () => {
+const HeroSection = ({onOpenAuth}) => {
   return (
     <section className="relative w-full overflow-hidden bg-[#f8fbff] pt-8 pb-12 sm:pt-10 sm:pb-16 lg:pt-16 lg:pb-24">
 
@@ -116,7 +116,10 @@ const HeroSection = () => {
 
               {/* Primary */}
 
-              <button className="group w-full sm:w-auto flex items-center justify-center gap-2.5 bg-[#1d4ed8] hover:bg-[#1644c4] text-white font-semibold text-[14px] lg:text-[15px] px-7 lg:px-8 py-3.5 lg:py-4 rounded-xl shadow-[0_10px_25px_rgba(29,78,216,0.25)] hover:shadow-[0_14px_30px_rgba(29,78,216,0.35)] hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-300">
+              <button 
+                onClick={onOpenAuth} 
+                className="group w-full sm:w-auto flex items-center justify-center gap-2.5 bg-[#1d4ed8] hover:bg-[#1644c4] text-white font-semibold text-[14px] lg:text-[15px] px-7 lg:px-8 py-3.5 lg:py-4 rounded-xl shadow-[0_10px_25px_rgba(29,78,216,0.25)] hover:shadow-[0_14px_30px_rgba(29,78,216,0.35)] hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-300"
+              >
 
                 <svg
                   className="w-5 h-5"
