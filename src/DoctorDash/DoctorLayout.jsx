@@ -6,7 +6,7 @@ import TopHeader from './TopHeader';
 import StatsRow from './StatsRow'; 
 import PatientTable from './PatientTable';
 import BottomCharts from './BottomCharts';
-
+import FallDetectionTab from './FallDetectionTab';
 // Tab 2 Components (Health Overview)
 import HealthOverview from './HealthOverview';
 
@@ -54,10 +54,19 @@ const DoctorLayout = ({ onLogout }) => {
             </div>
           )}
 
+         {/* ==============================================
+              TAB 3: FALL DETECTION & FATIGUE MONITORING
+          ============================================== */}
+          {activeTab === 'fall' && (
+            <div className="animate-in fade-in duration-300">
+              <FallDetectionTab />
+            </div>
+          )}
+
           {/* ==============================================
               OTHER TABS (Coming Soon Placeholders)
           ============================================== */}
-          {['fall', 'disaster', 'device'].includes(activeTab) && (
+          {['disaster', 'device'].includes(activeTab) && (
             <div className="flex h-full items-center justify-center text-slate-500 animate-in fade-in duration-300">
               <p className="text-lg">Module "{activeTab}" is under development...</p>
             </div>
