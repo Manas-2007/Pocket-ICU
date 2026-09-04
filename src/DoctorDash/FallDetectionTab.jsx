@@ -70,63 +70,113 @@ const FallTopCards = () => {
     },
   ];
 
-  return (
-    <div className="grid grid-cols-2 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
-      {cards.map((card) => {
-        const Icon = card.icon;
+ return (
+  <div className="grid grid-cols-2 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
+    {cards.map((card) => {
+      const Icon = card.icon;
 
-        return (
+      return (
+        <div
+          key={card.title}
+          className={`
+            ${cardClass}
+            ${card.border}
+            min-w-0
+            overflow-hidden
+            p-3
+            sm:p-5
+          `}
+        >
+          {/* Ambient glow */}
           <div
-            key={card.title}
-            className={`${cardClass} ${card.border} p-3.5 sm:p-5`}
-          >
-            {/* Ambient glow */}
-            <div
-              className={`pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full ${card.glow} blur-3xl`}
-            />
+            className={`
+              pointer-events-none
+              absolute
+              -right-8
+              -top-8
+              h-24
+              w-24
+              rounded-full
+              ${card.glow}
+              blur-3xl
+            `}
+          />
 
-            <div className="relative flex items-start justify-between gap-2">
-              <div className="min-w-0">
-                <p className="truncate text-[10px] font-medium text-slate-400 sm:text-[12px]">
-                  {card.title}
-                </p>
+          <div className="relative flex min-w-0 items-start justify-between gap-2">
 
-                <div className="mt-1 flex items-baseline gap-1.5">
-                  <h4
-                    className={`truncate text-[14px] font-bold leading-tight sm:text-[18px] ${card.valueColor}`}
-                  >
-                    {card.value}
-                  </h4>
+            {/* Text */}
+            <div className="min-w-0 flex-1">
+              <p className="truncate text-[9px] font-medium text-slate-400 sm:text-[12px]">
+                {card.title}
+              </p>
 
-                  {card.extra && (
-                    <span className="shrink-0 text-[10px] font-semibold text-slate-400 sm:text-[12px]">
-                      {card.extra}
-                    </span>
-                  )}
-                </div>
+              <div className="mt-1 flex min-w-0 items-start gap-1.5">
+                <h4
+                  className={`
+                    min-w-0
+                    max-w-full
+                    break-words
+                    text-[13px]
+                    font-bold
+                    leading-[1.15]
+                    ${card.valueColor}
+                    sm:text-[18px]
+                    sm:leading-tight
+                  `}
+                >
+                  {card.value}
+                </h4>
 
-                <p className="mt-1 truncate text-[9px] text-slate-500 sm:text-[11px]">
-                  {card.subtitle}
-                </p>
+                {card.extra && (
+                  <span className="shrink-0 pt-0.5 text-[9px] font-semibold text-slate-400 sm:pt-1 sm:text-[12px]">
+                    {card.extra}
+                  </span>
+                )}
               </div>
 
-              <div
-                className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border ${card.border} ${card.iconBg} sm:h-12 sm:w-12`}
-              >
-                <Icon
-                  className={`h-4 w-4 sm:h-6 sm:w-6 ${card.iconColor}`}
-                  strokeWidth={2}
-                />
-              </div>
+              <p className="mt-1 break-words text-[8px] leading-tight text-slate-500 sm:text-[11px]">
+                {card.subtitle}
+              </p>
             </div>
 
-            {/* Bottom accent */}
-            <div className="relative mt-3 h-px w-full bg-gradient-to-r from-transparent via-white/[0.08] to-transparent sm:mt-4" />
+            {/* Icon */}
+            <div
+              className={`
+                flex
+                h-8
+                w-8
+                shrink-0
+                items-center
+                justify-center
+                rounded-lg
+                border
+                ${card.border}
+                ${card.iconBg}
+                sm:h-12
+                sm:w-12
+                sm:rounded-xl
+              `}
+            >
+              <Icon
+                className={`
+                  h-4
+                  w-4
+                  sm:h-6
+                  sm:w-6
+                  ${card.iconColor}
+                `}
+                strokeWidth={2}
+              />
+            </div>
           </div>
-        );
-      })}
-    </div>
-  );
+
+          {/* Bottom accent */}
+          <div className="relative mt-3 h-px w-full bg-gradient-to-r from-transparent via-white/[0.08] to-transparent sm:mt-4" />
+        </div>
+      );
+    })}
+  </div>
+);
 };
 
 // ================================================================
