@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-
 import {
   Activity,
+  Bell, // Bell icon add kiya
   CalendarDays,
+  Sun,
   ChevronDown,
   ChevronRight,
   Cpu,
+  Moon,
   HeartPulse,
   LogOut,
   Menu,
@@ -53,6 +55,8 @@ const Sidebar = ({
   activePage = "analytics",
   onNavigate,
   onLogout,
+  isDarkMode,    // <--- YE ADD KIYA
+  toggleTheme,   // <--- YE ADD KIYA
 }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -69,8 +73,12 @@ const Sidebar = ({
 
   return (
     <>
-      {/* Mobile top bar */}
+      {/* =====================================================
+          MOBILE TOP BAR (Updated with Icons)
+      ====================================================== */}
       <div className="fixed inset-x-0 top-0 z-40 flex h-[58px] items-center justify-between border-b border-[#18263B] bg-[#06101F]/95 px-3 shadow-[0_8px_25px_rgba(0,0,0,0.25)] backdrop-blur-xl sm:h-[62px] sm:px-4 lg:hidden">
+        
+        {/* LEFT: Logo & Name */}
         <div className="flex min-w-0 items-center gap-2.5">
           <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-blue-500/30 bg-blue-500/10 shadow-[0_0_15px_rgba(37,99,235,0.12)] sm:h-9 sm:w-9 sm:rounded-xl">
             <HeartPulse
@@ -79,24 +87,54 @@ const Sidebar = ({
             />
           </div>
 
-          <div className="min-w-0">
+          <div className="min-w-0 hidden min-[320px]:block">
             <h2 className="truncate text-[13px] font-bold leading-none text-white sm:text-[15px]">
               Pocket ICU
             </h2>
-
             <p className="mt-1 truncate text-[7px] tracking-wide text-slate-500 sm:text-[8px]">
               Intelligent Health Monitoring
             </p>
           </div>
         </div>
 
-        <button
-          onClick={() => setMobileOpen(true)}
-          aria-label="Open navigation"
-          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-[#1C2C42] bg-[#0A1728] text-slate-300 sm:h-10 sm:w-10 sm:rounded-xl"
-        >
-          <Menu className="h-[18px] w-[18px] sm:h-5 sm:w-5" />
-        </button>
+        {/* RIGHT: Quick Actions & Hamburger */}
+        <div className="flex items-center gap-1.5 sm:gap-2">
+          
+          {/* Live Monitoring Pulse Icon */}
+          <button className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-emerald-500/20 bg-emerald-500/10 text-emerald-400 sm:h-10 sm:w-10 sm:rounded-xl">
+            <Activity className="h-[18px] w-[18px] sm:h-5 sm:w-5" strokeWidth={1.8} />
+            <span className="absolute right-1.5 top-1.5 h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.8)]" />
+          </button>
+
+{/* Theme Toggle Icon */}
+          <button 
+            onClick={toggleTheme}
+            className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-[#1A2A40] bg-[#0A1728] text-slate-400 transition-colors hover:text-white sm:h-10 sm:w-10 sm:rounded-xl"
+          >
+            {isDarkMode ? (
+              <Sun className="h-[18px] w-[18px] sm:h-5 sm:w-5" strokeWidth={1.8} />
+            ) : (
+              <Moon className="h-[18px] w-[18px] text-amber-400 sm:h-5 sm:w-5" strokeWidth={1.8} />
+            )}
+          </button>
+
+          {/* Notifications Icon */}
+          <button className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-[#1A2A40] bg-[#0A1728] text-slate-400 sm:h-10 sm:w-10 sm:rounded-xl">
+            <Bell className="h-[18px] w-[18px] sm:h-5 sm:w-5" strokeWidth={1.8} />
+            <span className="absolute right-1 top-1 flex h-3.5 min-w-[14px] items-center justify-center rounded-full border-2 border-[#06101F] bg-red-500 px-0.5 text-[7px] font-bold text-white sm:h-4 sm:min-w-[16px] sm:text-[8px]">
+              3
+            </span>
+          </button>
+
+          {/* Hamburger Menu */}
+          <button
+            onClick={() => setMobileOpen(true)}
+            aria-label="Open navigation"
+            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-[#1C2C42] bg-[#0A1728] text-slate-300 sm:h-10 sm:w-10 sm:rounded-xl"
+          >
+            <Menu className="h-[18px] w-[18px] sm:h-5 sm:w-5" strokeWidth={1.8} />
+          </button>
+        </div>
       </div>
 
       {/* Mobile spacing */}
@@ -126,7 +164,7 @@ const Sidebar = ({
 
           sm:w-[255px]
 
-          md:translate-x-0
+          
           md:w-[258px]
 
           lg:sticky
@@ -167,12 +205,12 @@ const Sidebar = ({
             </p>
           </div>
 
-          <button
+         <button
             onClick={() => setMobileOpen(false)}
             aria-label="Close sidebar"
-            className="ml-auto flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 md:hidden"
+            className="ml-auto flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 hover:bg-white/5 hover:text-white lg:hidden" 
           >
-            <X className="h-4 w-4" />
+            <X className="h-5 w-5" />
           </button>
         </div>
 

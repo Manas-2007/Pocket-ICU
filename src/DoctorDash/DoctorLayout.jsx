@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Sidebar from './Sidebar';
 import TopHeader from './TopHeader';
 import StatsRow from './StatsRow'; 
@@ -12,18 +12,48 @@ import DisasterManagementTab from './DisasterManagementTab';
 const DoctorLayout = ({ onLogout }) => {
   const [activeTab, setActiveTab] = useState('analytics');
 
+  // ==========================================
+  // THEME STATE & LOCAL STORAGE LOGIC
+  // ==========================================
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    // Refresh hone par purani theme yaad rakhega
+    const savedTheme = localStorage.getItem('app-theme');
+    return savedTheme ? savedTheme === 'dark' : true; // Default Dark
+  });
+
+  useEffect(() => {
+    // Theme change hone par HTML class aur local storage update karega
+    if (isDarkMode) {
+      document.documentElement.classList.remove('light-magic');
+      localStorage.setItem('app-theme', 'dark');
+    } else {
+      document.documentElement.classList.add('light-magic');
+      localStorage.setItem('app-theme', 'light');
+    }
+  }, [isDarkMode]);
+
+  // Theme toggle karne ka function
+  const toggleTheme = () => setIsDarkMode(!isDarkMode);
+
   return (
     <div className="flex h-[100dvh] w-full bg-[#050914] overflow-hidden font-sans">
       
+      {/* Sidebar me theme ke props pass kiye */}
       <Sidebar 
         onLogout={onLogout} 
         activePage={activeTab} 
         onNavigate={(id) => setActiveTab(id)} 
+        isDarkMode={isDarkMode}
+        toggleTheme={toggleTheme}
       />
 
       <main className="flex-1 flex flex-col h-full overflow-hidden relative">
         
-        <TopHeader />
+        {/* TopHeader me theme ke props pass kiye */}
+        <TopHeader 
+          isDarkMode={isDarkMode} 
+          toggleTheme={toggleTheme} 
+        />
         
         <div className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-[#1A2A40]">
           

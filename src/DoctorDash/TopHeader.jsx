@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 
 import {
   Activity,
+  Search,
   Bell,
   ChevronDown,
   Moon,
@@ -9,9 +10,8 @@ import {
   Sun,
 } from "lucide-react";
 
-const TopHeader = () => {
-  const [darkMode, setDarkMode] = useState(true);
-
+// Yahan props receive kar liye: isDarkMode aur toggleTheme
+const TopHeader = ({ isDarkMode, toggleTheme }) => {
   return (
     <header
       className="
@@ -135,7 +135,7 @@ const TopHeader = () => {
         <div className="flex items-center gap-2">
           {/* Theme */}
           <button
-            onClick={() => setDarkMode(!darkMode)}
+            onClick={toggleTheme}
             title="Toggle theme"
             className="
               group flex h-11 w-11 items-center justify-center
@@ -151,14 +151,14 @@ const TopHeader = () => {
               hover:shadow-[0_0_18px_rgba(59,130,246,0.07)]
             "
           >
-            {darkMode ? (
-              <Moon
+            {isDarkMode ? (
+              <Sun
                 className="h-[19px] w-[19px] transition-transform duration-200 group-hover:rotate-12"
                 strokeWidth={1.8}
               />
             ) : (
-              <Sun
-                className="h-[19px] w-[19px] text-amber-400"
+              <Moon
+                className="h-[19px] w-[19px] text-amber-400 transition-transform duration-200 group-hover:-rotate-12"
                 strokeWidth={1.8}
               />
             )}
@@ -236,6 +236,29 @@ const TopHeader = () => {
           MOBILE ACTIONS
       ===================================================== */}
       <div className="ml-3 flex items-center gap-1.5 md:hidden">
+        
+        {/* Theme (Mobile) */}
+        <button
+          onClick={toggleTheme}
+          title="Toggle Theme"
+          className="
+            relative flex h-10 w-10 items-center justify-center
+            rounded-xl
+            border border-[#1A2A40]
+            bg-[#0A1728]
+            text-slate-400
+            transition-all
+            hover:bg-[#0D1D31]
+            hover:text-white
+          "
+        >
+          {isDarkMode ? (
+            <Sun className="h-[18px] w-[18px]" strokeWidth={1.8} />
+          ) : (
+            <Moon className="h-[18px] w-[18px] text-amber-400" strokeWidth={1.8} />
+          )}
+        </button>
+
         {/* Live status */}
         <button
           title="Live Monitoring"
@@ -287,27 +310,6 @@ const TopHeader = () => {
           >
             3
           </span>
-        </button>
-
-        {/* Settings */}
-        <button
-          title="Settings"
-          className="
-            hidden h-10 w-10 items-center justify-center
-            rounded-xl
-            border border-[#1A2A40]
-            bg-[#0A1728]
-            text-slate-400
-            transition-all
-            hover:bg-[#0D1D31]
-            hover:text-white
-            sm:flex
-          "
-        >
-          <Settings
-            className="h-[18px] w-[18px]"
-            strokeWidth={1.8}
-          />
         </button>
       </div>
     </header>

@@ -1,1 +1,16 @@
 @import "tailwindcss";
+
+/* =========================================================
+   MAGIC LIGHT THEME (Invert Trick)
+========================================================= */
+html.light-magic {
+  /* Yeh poore app ke colors ko invert karke hue maintain rakhega */
+  filter: invert(1) hue-rotate(180deg);
+  transition: filter 0.3s ease-in-out;
+}
+
+/* Lekin humein images (jaise doctor ka avatar) ko invert nahi karna, 
+   warna wo bhoot (ghost) jaise negative dikhenge! */
+html.light-magic img {
+  filter: invert(1) hue-rotate(180deg);
+}
